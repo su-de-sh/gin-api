@@ -1,19 +1,15 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"github.com/su-de-sh/gin-api/database"
+	"github.com/su-de-sh/gin-api/routes"
 )
 
 func main() {
+     database.Connect()
     r := gin.Default()
-
-    r.GET("/ping", func(c *gin.Context) {
-        c.JSON(http.StatusOK, gin.H{
-            "message": "pong",
-        })
-    })
-
-    r.Run() // runs on localhost:8080
+    routes.PostRoutes(r)
+    routes.CatchAllRoutes(r)
+    r.Run() // Use PORT from .env or default to 3000
 }
